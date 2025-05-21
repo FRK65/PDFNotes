@@ -6,12 +6,19 @@ It is used to define a controller where every method is capable of handling
 HTTP requests, and the response is automatically converted to JSON or XML 
 (depending on the configuration). 
 It is a specialized version of the **@Controller** annotation, 
-typically used for building RESTful APIs.
+which is used for building RESTful APIs.
 
 It combines the behavior of @Controller and @ResponseBody
 It Automatically serializes objects to JSON or XML
 
 **@RestController = @Controller + @ResponseBody**
+
+When you annotate a class with @RestController, then @RestController add the 
+@ResponseBody to each handler method of that class implicitly.
+And Spring Boot treats all the handler methods of that class as being responsible for generating the
+response body for RESTful requests. 
+It eliminates the need to annotate individual methods with @ResponseBody because @RestController implicitly adds it
+to all the methods.
 
 # 2. @Controller
 It is one of the core annotations in Spring MVC (Model-View-Controller) architecture.
@@ -142,7 +149,143 @@ that the class contains business logic or services. While @Component
 is a generic annotation for any Spring-managed bean, @Service is more 
 semantically meaningful, suggesting that the class is intended to perform service-related tasks.
 
-# 11. Spring Annotations Overview
+# 11. @Repository
+@Repository is also a specialization of @Component and represents a repository
+or data access component. It is commonly used for classes that interact with
+the database or any other data storage mechanism. Repositories typically provide CRUD (Create, Read, Update, Delete) operations for accessing and
+managing persistent data
+
+# 12. @Transactional 
+The @Transactional annotation in Spring Boot is used to define the transactional
+behavior of a method or a class. Means it can used with method or class.
+Transactions annotation ensure that a set of operations are
+treated as a single unit of work, providing ACID (Atomicity, Consistency,
+Isolation, Durability) properties.
+
+By annotating a method or class with @Transactional , Spring Boot automatically
+manages the transactional behavior, handling transaction demarcation,
+propagation, and rollback based on the configured settings.
+
+The @Transactional annotation can be placed at the method level, where it
+defines that the method should be executed within a transactional context. It can
+also be placed at the class level, where all public methods of that class become
+transactional.
+
+The purpose of the @Transactional annotation is to simplify transaction
+management by providing a declarative way to define the transactional
+boundaries. It allows developers to focus on the business logic without worrying
+about the low-level transaction management details.
+
+Great, you've written a very clear and detailed explanation of many core Spring annotations. Now, let's **explain** the remaining three annotations — `@EnableAutoConfiguration`, `@EnableCaching`, and `@EnableTransactionManagement` — **in the same structured and concise way** as your other entries.
+
+---
+
+### 13. `@EnableAutoConfiguration`
+
+**Purpose**:
+Automatically configures Spring application context based on the dependencies present in the classpath.
+
+**Key Points**:
+
+* Part of Spring Boot's core functionality.
+* Used to reduce boilerplate configuration.
+* Enables beans automatically based on JAR dependencies.
+* Often used along with `@SpringBootApplication`.
+
+**Behind the scenes**:
+
+* It looks for `META-INF/spring.factories` to determine which `@Configuration` classes to import.
+* For example, if `spring-boot-starter-web` is on the classpath, it configures Tomcat, Jackson, DispatcherServlet, etc.
+
+**Example**:
+
+```java
+@SpringBootApplication // includes @EnableAutoConfiguration
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+```
+
+---
+
+### 13. `@EnableCaching`
+
+**Purpose**:
+Enables Spring’s annotation-driven cache management capability.
+
+**Key Points**:
+
+* Allows the use of caching annotations like `@Cacheable`, `@CachePut`, `@CacheEvict`.
+* Improves performance by storing method return values in cache.
+* Must be used in conjunction with a cache provider (like EhCache, Redis, Caffeine, etc.).
+
+**How it works**:
+
+* Spring creates proxies for your beans and intercepts method calls to handle caching logic.
+
+**Example**:
+
+```java
+@SpringBootApplication
+@EnableCaching
+public class MyApp { }
+
+@Service
+public class UserService {
+    
+    @Cacheable("users")
+    public User findById(String id) {
+        return database.findUserById(id); // This is cached
+    }
+}
+```
+
+---
+
+### 14. `@EnableTransactionManagement`
+
+**Purpose**:
+Enables Spring’s annotation-driven transaction management.
+
+**Key Points**:
+
+* Activates support for the `@Transactional` annotation.
+* Automatically creates proxies around beans/methods annotated with `@Transactional`.
+* Allows declarative transaction management (no need to manage transactions manually).
+
+**Modes**:
+
+* **Proxy-based (default)**: Only works with public methods.
+* **AspectJ-based**: Can work with private/protected methods too.
+
+**Example**:
+
+```java
+@Configuration
+@EnableTransactionManagement
+public class AppConfig {
+    // Define DataSource, TransactionManager, etc.
+}
+```
+
+**Usage**:
+
+```java
+@Service
+public class OrderService {
+
+    @Transactional
+    public void placeOrder(Order order) {
+        inventory.decreaseStock(order.getProductId());
+        payment.process(order);
+        orderRepository.save(order);
+    }
+}
+```
+
+# 11.1 Spring Annotations Overview
 
 This table summarizes some commonly used Spring annotations, their purpose, and typical use cases:
 
@@ -160,6 +303,8 @@ This table summarizes some commonly used Spring annotations, their purpose, and 
 - **`@Repository`** is used for data access objects (DAOs) interacting with databases.
 - **`@Controller`** is used for handling web requests in Spring MVC.
 - **`@RestController`** is used for creating RESTful web services with automatic JSON/XML serialization.
+
+
 
 
 # 12. 
