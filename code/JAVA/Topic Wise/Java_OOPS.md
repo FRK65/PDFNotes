@@ -1,5 +1,5 @@
 ### **Q.1 What do you mean by Inheritance? What are the advantages of Inheritance?**
-
+    
 **Answer**:
 **Inheritance** is a mechanism in Java that allows one class (subclass) to inherit the properties (fields) and methods of another class (superclass).
 **Advantages**:
