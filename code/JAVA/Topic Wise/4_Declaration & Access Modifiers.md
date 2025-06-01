@@ -296,3 +296,53 @@ The **`strictfp`** modifier is used to **restrict floating-point calculations** 
 
 **Real-life Example**:
 When performing **scientific** calculations where precision across different platforms
+
+Here are the short and sweet interview-ready answers with key concepts:
+
+---
+
+**Q.16: What is the purpose of `native` modifier?**
+
+* **Purpose**: Declares a method that is implemented in **platform-dependent (non-Java) code**, typically in **C/C++** using JNI (Java Native Interface).
+* **Key Concept**: Enables Java to interact with native libraries.
+
+---
+
+**Q.17: How many modifiers are applicable on outer class?**
+
+* **Applicable Modifiers**: `public`, `default` (no modifier), `final`, `abstract`, `strictfp`
+* **Key Concept**: Outer classes cannot be `private`, `protected`, `static`.
+
+---
+
+**Q.18: Which modifiers are applicable for local variables?**
+
+* **Applicable Modifiers**: `final`
+* **Key Concept**: Local variables can only be `final` to make them constant within the method/block.
+
+---
+
+**Q.19: Which modifiers are applicable only for methods?**
+
+* **Only for Methods**: `native`, `synchronized`
+* **Key Concept**: `native` for linking with native code; `synchronized` for thread safety.
+
+---
+
+**Q.20: Which modifiers are applicable only for variables?**
+
+* **Only for Variables**: `transient`, `volatile`
+* **Key Concept**:
+
+  * `transient` skips during serialization.
+  * `volatile` ensures visibility in multithreading.
+
+---
+
+**Q.21: On Constructors which modifiers are applicable?**
+
+* **Applicable Modifiers**: `public`, `private`, `protected`, `default` (no modifier)
+* **Key Concept**: Used to control constructor access. **`final`, `static`, `abstract`, `synchronized`** not allowed.
+
+---
+
