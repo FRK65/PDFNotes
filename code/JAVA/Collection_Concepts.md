@@ -415,11 +415,170 @@ System.out.println(uniqueWords); // Output: [dog, cat, elephant]
 
 ---
 
+You're very welcome! 🙌 I'm really glad you're finding the explanations helpful — and now let’s deep-dive into **`Hashtable` in Java**, just like we did for `HashMap` and `Set`.
+
+---
+
+## 📘 **What is `Hashtable` in Java?**
+
+### ✅ **Definition:**
+
+`Hashtable` is a **legacy class** in Java that implements the `Map` interface and stores **key-value pairs** using a **hashing mechanism**. It is similar to `HashMap`, but with **synchronization** built-in.
+
+```java
+Hashtable<String, Integer> table = new Hashtable<>();
+table.put("A", 1);
+```
+
+> 💡 Think of `Hashtable` as an older, thread-safe version of `HashMap`.
+
+---
+
+## 🧬 **Hierarchy of Hashtable**
+
+```
+java.lang.Object
+    ↳ java.util.Dictionary (abstract class - legacy)
+         ↳ java.util.Hashtable
+              ↳ java.util.Properties
+```
+
+And from the Collections side:
+
+```
+java.util.Map (Interface)
+    ↳ java.util.Hashtable (implements Map)
+```
+
+---
+
+## 🛠️ **Key Properties of Hashtable**
+
+| Feature        | Description                                            |
+| -------------- | ------------------------------------------------------ |
+| 🔑 Keys        | Must be unique                                         |
+| 🧾 Values      | Can be duplicate                                       |
+| 🔐 Thread-safe | ✅ Yes — all methods are synchronized                   |
+| 🌐 Nulls       | ❌ **No null keys or values allowed**                   |
+| ⚡ Performance  | Slower than `HashMap` (due to locking)                 |
+| 📚 Backed by   | Hash table (array of buckets)                          |
+| 🏷️ Legacy     | Yes (part of Java 1.0, predates Collections framework) |
+
+---
+
+## 🔍 **Hashtable vs HashMap**
+
+| Feature          | `Hashtable`          | `HashMap`                            |
+| ---------------- | -------------------- | ------------------------------------ |
+| Thread-Safe      | ✅ Yes (synchronized) | ❌ No (must be synchronized manually) |
+| Null Keys/Values | ❌ Not allowed        | ✅ 1 null key, multiple null values   |
+| Performance      | ❌ Slower (locking)   | ✅ Faster                             |
+| Modern Use       | ❌ Legacy             | ✅ Preferred                          |
+| Part of          | `Dictionary`, `Map`  | `Map`                                |
+
+---
+
+## ⚙️ **How Does Hashtable Work Internally?**
+
+Similar to `HashMap`, but with **synchronized methods**:
+
+1. Key is passed to `hashCode()`.
+2. Hash code is used to find a **bucket index**.
+3. If collision occurs, uses **LinkedList chaining**.
+4. Every method like `put()`, `get()` is **synchronized** to ensure thread safety.
+
+---
+
+## ⚠️ **Limitations of Hashtable**
+
+* **All methods are synchronized**, so only one thread can access it at a time — which leads to performance bottlenecks in high-concurrency environments.
+* Does **not allow null** keys or values.
+* Considered **outdated** — replaced by `ConcurrentHashMap` in concurrent applications.
+
+---
+
+## ✅ **Common Methods of Hashtable**
+
+```java
+Hashtable<String, String> table = new Hashtable<>();
+
+table.put("name", "Alice");
+table.get("name");             // "Alice"
+table.containsKey("name");     // true
+table.containsValue("Alice");  // true
+table.remove("name");          // removes entry
+table.size();                  // size of table
+table.isEmpty();               // check if empty
+table.clear();                 // remove all entries
+```
+
+---
+
+## 📦 **Real-Life Example: User Authentication (legacy systems)**
+
+```java
+Hashtable<String, String> loginData = new Hashtable<>();
+loginData.put("admin", "admin123");
+loginData.put("user", "user@123");
+
+// Check login
+String inputUser = "admin";
+String inputPass = "admin123";
+
+if (loginData.containsKey(inputUser) && loginData.get(inputUser).equals(inputPass)) {
+    System.out.println("Login Successful");
+} else {
+    System.out.println("Invalid credentials");
+}
+```
+
+---
+
+## 🔐 **Thread-Safety: Hashtable vs ConcurrentHashMap**
+
+| Feature       | `Hashtable`                  | `ConcurrentHashMap`                               |
+| ------------- | ---------------------------- | ------------------------------------------------- |
+| Thread Safety | ✅ Whole methods synchronized | ✅ Fine-grained synchronization (segments/buckets) |
+| Performance   | ❌ Slower                     | ✅ Much better under concurrency                   |
+| Nulls         | ❌ No null keys/values        | ❌ No null keys/values                             |
+| Modern Usage  | ❌ Outdated                   | ✅ Recommended                                     |
+
+---
+
+## 🧠 **Interview Questions on Hashtable**
+
+| Question                                 | Concept                       |
+| ---------------------------------------- | ----------------------------- |
+| How is Hashtable different from HashMap? | Thread-safety, nulls          |
+| Can Hashtable store null values?         | ❌ No                          |
+| Is Hashtable synchronized?               | ✅ Yes, fully                  |
+| When to use Hashtable?                   | Rarely, mostly legacy systems |
+| What replaced Hashtable?                 | `ConcurrentHashMap`           |
+
+---
+
+## 🧾 Summary Cheat Sheet
+
+| Feature          | Hashtable                            |
+| ---------------- | ------------------------------------ |
+| Thread-Safe      | ✅ Yes (synchronized)                 |
+| Null Keys/Values | ❌ Not allowed                        |
+| Duplicates       | Keys: ❌, Values: ✅                   |
+| Ordering         | ❌ No order maintained                |
+| Performance      | ❌ Slower than `HashMap`              |
+| Use Case         | Legacy code, simple thread-safe apps |
+| Preferred Today  | ❌ Use `ConcurrentHashMap` instead    |
+
+---
+
 Would you like:
 
-* A **diagram of Set hierarchy**?
-* A **quiz or flashcards** for Set concepts?
-* Practice exercises to implement or compare `HashSet`, `TreeSet`, and `LinkedHashSet`?
+* A comparison chart between `Hashtable`, `ConcurrentHashMap`, and `SynchronizedMap`?
+* A visual diagram of `Hashtable` internals?
+* Practice questions or MCQs on this?
+
+
+
 
 
 
